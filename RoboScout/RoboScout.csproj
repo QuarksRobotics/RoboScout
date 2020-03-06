@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>RoboScout</AssemblyName>
+    <RootNamespace>RoboScout</RootNamespace>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <ReleaseVersion>2.0</ReleaseVersion>
+    <Configurations>Debug;Release;Gorilla</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Gorilla|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Gorilla\netstandard2.0</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0;GORILLA</DefineConstants>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1701;1702;1705</NoWarn>
+    <NoStdLib>true</NoStdLib>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.4.0" NoWarn="NU1701" />
+    <PackageReference Include="MySql.Data" Version="8.0.19" />
+    <PackageReference Include="UXDivers.Effects" Version="0.6.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
+    <PackageReference Include="UXDivers.Artina.Shared.Base" Version="2.7.7" />
+    <PackageReference Include="UXDivers.Artina.Shared" Version="2.7.7" />
+    <PackageReference Include="UXDivers.Artina.Controls.Tab" Version="2.7.7" />
+    <PackageReference Include="UXDivers.Artina.Controls.Repeater" Version="2.7.7" />
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.3.840" />
+    <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.3.840" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.3.840" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Common\BrandBlock.xaml.cs">
+      <DependentUpon>BrandBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Common\Badge.xaml.cs">
+      <DependentUpon>Badge.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Common\CustomActivityIndicator.xaml.cs">
+      <DependentUpon>CustomActivityIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Common\Rating.xaml.cs">
+      <DependentUpon>Rating.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Common\RoundedLabel.xaml.cs">
+      <DependentUpon>RoundedLabel.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Navigation\WelcomeStarterPage.xaml.cs">
+      <DependentUpon>WelcomeStarterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Themes\GrialDarkTheme.xaml.cs">
+      <DependentUpon>GrialDarkTheme.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\myPage.xaml.cs">
+      <DependentUpon>myPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Theme\TabControlSamplePage.xaml.cs">
+      <DependentUpon>TabControlSamplePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Resx\AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resx\AppResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\EventPages\SocialVariantPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\myPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

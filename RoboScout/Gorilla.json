@@ -1,0 +1,106 @@
+{
+  "localization": {
+    "markupExtension": {
+      "name": "Translate",
+      "namespace": "UXDivers.Artina.Shared",
+      "keyPropertyName": "Key"
+    },
+    "resources": {
+      "resourceId": "RoboScout.Resx.AppResources",
+      "assembly": "RoboScout",
+      "defaultCulture": "en"
+    }
+  },
+  "navigationPage": {
+    "all": [
+      true
+    ],
+    "exclude": [
+      "WalkthroughFlatStepItemTemplate.xaml",
+      "WalkthroughStepItemTemplate.xaml",
+      "WalkthroughVariantStepItemTemplate.xaml",
+      "WalkthroughFlatPage.xaml",
+      "WalkthroughPage.xaml",
+      "WalkthroughVariantPage.xaml",
+      "LoginPage.xaml",
+      "PasswordRecoveryPage.xaml",
+      "SignUpPage.xaml",
+      "SimpleLoginPage.xaml",
+      "SimpleSignUpPage.xaml",
+      "CustomNavBarPage.xaml",
+      "WelcomePage.xaml",
+      "MainMenuPage.xaml",
+      "ProfilePage.xaml",
+      "ArticleClassicViewItemTemplate.xaml",
+      "ArticleFeedItemTemplate.xaml",
+      "ArticleItemTemplate.xaml",
+      "ArticleVariantItemTemplate.xaml",
+      "CommentItemTemplate.xaml",
+      "FrontPageHeaderItemTemplate.xaml",
+      "FrontPageNewsItemTemplate.xaml",
+      "Badge.xaml",
+      "BrandBlock.xaml",
+      "CircleIcon.xaml",
+      "CustomActivityIndicator.xaml",
+      "CustomNavBar.xaml",
+      "Rating.xaml",
+      "RoundedLabel.xaml",
+      "DashboardAppNotificationItemTemplate.xaml",
+      "DashboardCardItemTemplate.xaml",
+      "DashboardItemTemplate.xaml",
+      "DashboardMultipleScrollItemTemplate.xaml",
+      "DashboardMultipleScrollMainItemTemplate.xaml",
+      "DashboardMultipleScrollSectionTemplate.xaml",
+      "DashboardVariantItemTemplate.xaml",
+      "ProductGridItemTemplate.xaml",
+      "ProductsCatalogItemTemplate.xaml",
+      "ProductImageFullScreenPage.xaml",
+      "ChatLeftMessageItemTemplate.xaml",
+      "ChatRightMessageItemTemplate.xaml",
+      "ChatTimelineIncomingItemTemplate.xaml",
+      "ChatTimelineOutgoingItemTemplate.xaml",
+      "MessageItemTemplate.xaml",
+      "RecentChatItemTemplate.xaml",
+      "CardsListItemTemplate.xaml",
+      "CategoriesListItemTemplate.xaml",
+      "CategoriesListWithIconsItemTemplate.xaml",
+      "CategoriesListWithImagesItemTemplate.xaml",
+      "MainMenuGroupHeaderTemplate.xaml",
+      "MainMenuItemTemplate.xaml",
+      "NotificationsListItemTemplate.xaml",
+      "SamplesListFromCategoryItemTemplate.xaml",
+      "DocumentTimelineLeftItemTemplate.xaml",
+      "DocumentTimelineRightItemTemplate.xaml",
+      "FriendItemTemplate.xaml",
+      "SocialGalleryImage.xaml",
+      "SocialHeaderTemplate.xaml",
+      "SocialGalleryImagePreviewPage.xaml",
+      "TimelineItemTemplate.xaml",
+      "WalkthroughFlatStepItemTemplate.xaml",
+      "WalkthroughStepItemTemplate.xaml",
+      "WalkthroughVariantStepItemTemplate.xaml"
+    ]
+  },
+  "clients": [
+    {
+      "kind": "GrialLive",
+      "mappings": [
+        {
+          "from": {
+            "className": "FontAwesomeFont",
+            "namespace": "UXDivers.Artina.Grial"
+          },
+          "to": {
+            "namespace": "RoboScout"
+          }
+        }
+      ]
+    }
+  ],
+  "xaml": {
+    "avoidExpansion": [
+      "Badge.xaml",
+      "Rating.xaml"
+    ]
+  }
+}
