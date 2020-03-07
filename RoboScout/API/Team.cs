@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using RoboScout;
+using Xamarin.Forms;
 
 namespace RoboScout.API
 {
@@ -20,5 +22,6 @@ namespace RoboScout.API
         public string country { get; set; }
         public int rookie_year { get; set; }
         public string website { get; set; }
+        public Color BackgroundColor_ { get; set; }
     }
 }

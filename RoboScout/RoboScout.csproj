@@ -51,9 +51,6 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Common\RoundedLabel.xaml.cs">
       <DependentUpon>RoundedLabel.xaml</DependentUpon>
     </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Views\Navigation\WelcomeStarterPage.xaml.cs">
-      <DependentUpon>WelcomeStarterPage.xaml</DependentUpon>
-    </Compile>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Themes\GrialDarkTheme.xaml.cs">
       <DependentUpon>GrialDarkTheme.xaml</DependentUpon>
     </Compile>
@@ -73,9 +70,6 @@
     <EmbeddedResource Condition=" '$(EnableDefaultEmbeddedResourceItems)' == 'true' " Update="Resx\AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\EventPages\SocialVariantPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\myPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

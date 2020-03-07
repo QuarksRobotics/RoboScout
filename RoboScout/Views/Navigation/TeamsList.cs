@@ -6,13 +6,13 @@ using Xamarin.Forms;
 
 namespace RoboScout
 {
-	public partial class EventList : ContentPage
+	public partial class TeamsList : ContentPage
 	{
-		public EventList()
+		public TeamsList()
 		{
 			Title = "Events";
-			
-			var eventTemplate = new DataTemplate(() =>
+
+			var teamTemplate = new DataTemplate(() =>
 			{
 
 				var grid = new Grid
@@ -24,49 +24,53 @@ namespace RoboScout
 				};
 
 				grid.SetBinding(Grid.BackgroundColorProperty, "BackgroundColor_");
-				var eventNameLabel = new Label { 
-					VerticalTextAlignment = TextAlignment.End, 
-					HorizontalTextAlignment = TextAlignment.Start, 
+				var eventNameLabel = new Label
+				{
+					VerticalTextAlignment = TextAlignment.End,
+					HorizontalTextAlignment = TextAlignment.Start,
 					Margin = new Thickness(12, 0, 0, 0),
 					FontSize = 18
 				};
-				eventNameLabel.SetBinding(Label.TextProperty, "event_name");
+				eventNameLabel.SetBinding(Label.TextProperty, "team_name_short");
 
-				var eventLocationLabel = new Label { 
-					VerticalTextAlignment = TextAlignment.Start, 
-					HorizontalTextAlignment = TextAlignment.Start, 
-					FontSize = 16, 
-					Opacity = .5, 
-					FontAttributes = FontAttributes.Italic, 
-					Margin = new Thickness(12, 0, 0, 0) };
-				eventLocationLabel.SetBinding(Label.TextProperty, "location_string");
+				var eventLocationLabel = new Label
+				{
+					VerticalTextAlignment = TextAlignment.Start,
+					HorizontalTextAlignment = TextAlignment.Start,
+					FontSize = 16,
+					Opacity = .5,
+					FontAttributes = FontAttributes.Italic,
+					Margin = new Thickness(12, 0, 0, 0)
+				};
+				eventLocationLabel.SetBinding(Label.TextProperty, "team_number");
 
 				grid.Children.Add(eventNameLabel, 0, 0);
 				grid.Children.Add(eventLocationLabel, 0, 1);
 
 				var myCell = new ViewCell { View = grid };
-				
+
 				return myCell;
 			});
 
-			var myEvents = RootPage.getData().debugEvents(); // this is changed for debugging
 
+			var myTeam = RootPage.getData().debugTeams(); // this is changed for debugging
 
+			myTeam[0].BackgroundColor_ = Color.FromHex("#921243");
 
 			var list = new ListView
 			{
 				SelectionMode = ListViewSelectionMode.Single,
-				ItemsSource = myEvents,
+				ItemsSource = myTeam,
 				SeparatorVisibility = SeparatorVisibility.None,
 				SeparatorColor = Color.Transparent,
 				HasUnevenRows = false,
 				RowHeight = 80, // figure onIdiom out
-				ItemTemplate = eventTemplate,
+				ItemTemplate = teamTemplate,
 			};
 
 			list.ItemTapped += OnItemTapped;
 
-			if (myEvents != null)
+			if (myTeam != null)
 			{
 				this.Content = new StackLayout
 				{
@@ -75,17 +79,19 @@ namespace RoboScout
 						list
 					}
 				};
-			} else { 
-				this.Content = new ContentView { Content = new Label { Text = "There Are No Events Today", HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center } }; 
+			}
+			else
+			{
+				this.Content = new ContentView { Content = new Label { Text = "There Are No Teams", HorizontalTextAlignment = TextAlignment.Center, VerticalTextAlignment = TextAlignment.Center } };
 			}
 		}
 
 		private async void OnItemTapped(Object sender, ItemTappedEventArgs e)
 		{
 			var selectedItem = ((ListView)sender).SelectedItem;
-			var selectedEvent = (Event)selectedItem;
+			var selectedEvent = (Team)selectedItem;
 
-			await Navigation.PushAsync(new EventPage(selectedEvent.event_key)); // argument selectedEvent.event_key
+			await Navigation.PushAsync(new TeamPage(selectedEvent.team_key)); // argument selectedEvent.event_key
 		}
 	}
 }

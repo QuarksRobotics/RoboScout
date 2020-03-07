@@ -135,6 +135,8 @@ namespace RoboScout.API
         }
 
 
+
+
         // === Get and Parse Data === //
         public void parseAlliance(string eventKey) { alliance = JsonConvert.DeserializeObject<List<Alliance>>(getAlliance(eventKey))[0]; } // add this.alliance = PARSEHERE(getAlliance(eventKey))[0]
         public void parseAward() { award = JsonConvert.DeserializeObject<List<Award>>(getAward())[0]; }
@@ -216,6 +218,13 @@ namespace RoboScout.API
             return eventList;
         }
 
+        public List<Team> debugTeams()
+        {
+            List<Team> temp = new List<Team>();
+            temp.Add(updateTeam("3591"));
+            return temp;
+        }
+
         // === apiCall function === //
         public string apiCall(string path)
         {
@@ -244,15 +253,46 @@ namespace RoboScout.API
         {
             string connection_string = @"server=" + RootPage.getSecrets().server + ";userid=" + RootPage.getSecrets().userid + ";password=" + RootPage.getSecrets().password + ";database=" + RootPage.getSecrets().database;
             var con = new MySqlConnection(connection_string);
+            string command = "INSERT INTO reports " +
+                "(team_key, report_key, event_key, auto_points, auto_skystone_delv, auto_skystone_delv_points, auto_stone_delv, auto_stone_delv_points, auto_repositioning, " +
+                "auto_placing, auto_placing_points, auto_navigating, tele_points, tele_stone_delv, tele_stone_delv_points, tele_stone_placing, tele_stone_placing_points, end_points, end_tallest_sky, end_tallest_sky_points, end_capped, end_capped_lv, end_capping_points, end_foundation, parking, penalties)"
+                + " VALUES ("
+                + report.team_key + ", "
+                + report.report_key + ", "
+                + report.event_key + ", "
+                + report.auto_points + ", "
+                + report.auto_skystone_delv + ", "
+                + report.auto_skystone_delv_points + ", "
+                + report.auto_stone_delv + ", "
+                + report.auto_stone_delv_points + ", "
+                + report.auto_repositioning + ", "
+                + report.auto_placing + ", "
+                + report.auto_placing_points + ", "
+                + report.auto_navigating + ", "
+                + report.tele_points + ", "
+                + report.tele_stone_delv + ", "
+                + report.tele_stone_delv_points + ", "
+                + report.tele_stone_placing + ", "
+                + report.tele_stone_placing_points + ", "
+                + report.end_points + ", "
+                + report.end_tallest_sky + ", "
+                + report.end_tallest_sky_points + ", "
+                + report.end_capped + ", "
+                + report.end_capped_lv + ", "
+                + report.end_capping_points + ", "
+                + report.end_foundation + ", "
+                + report.parking + ", "
+                + report.penalties + ");";
             con.Open();
-            String command = "INSERT";
             MySqlCommand cmd = new MySqlCommand(command, con);
-            con.Open();
-            //TODO: finish method
+            cmd.ExecuteNonQuery();
+            con.Close();
+            con.Dispose();
         }
-        public Report sqlCall(string sqlCommand) //return a single report
+        public Report sqlCallByTeam(string teamkey) //return the first report by teamkey
         {
-            string connection_string = @"server=" + RootPage.getSecrets().server + ";userid=" + RootPage.getSecrets().userid + ";password=" + RootPage.getSecrets().password + ";database=" + RootPage.getSecrets().database;
+            string sqlCommand = "SELECT * from reports WHERE team_key == " + teamkey + ";";
+            string connection_string = "server=" + RootPage.getSecrets().server + ";userid=" + RootPage.getSecrets().userid + ";password=" + RootPage.getSecrets().password + ";database=" + RootPage.getSecrets().database;
             var con = new MySqlConnection(connection_string);
             con.Open();
             MySqlCommand cmd = new MySqlCommand(sqlCommand, con);
@@ -269,8 +309,29 @@ namespace RoboScout.API
 
             return report;
         }
-        public List<Report> sqlCallMR(string sqlCommand) //return multiple reports as a list
+        public Report sqlCallByEvent(string eventkey) //return the first report by eventkey
         {
+            string sqlCommand = "SELECT * from reports WHERE event_key == " + eventkey;
+            string connection_string = @"server=" + RootPage.getSecrets().server + ";userid=" + RootPage.getSecrets().userid + ";password=" + RootPage.getSecrets().password + ";database=" + RootPage.getSecrets().database;
+            var con = new MySqlConnection(connection_string);
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand(sqlCommand, con);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            Report report = null;
+            while (rdr.Read())
+            {
+                report = assignReport(rdr);
+            }
+            rdr.Close();
+            con.Close();
+            rdr.Dispose();
+            con.Dispose();
+
+            return report;
+        }
+        public List<Report> sqlCallsByTeam(int teamkey) //return multiple reports as a list
+        {
+            string sqlCommand= "SELECT * from reports WHERE team_key == " + teamkey;
             string connection_string = @"server=" + RootPage.getSecrets().server + ";userid=" + RootPage.getSecrets().userid + ";password=" + RootPage.getSecrets().password + ";database=" + RootPage.getSecrets().database;
             var con = new MySqlConnection(connection_string);
             con.Open();
@@ -288,35 +349,55 @@ namespace RoboScout.API
 
             return reports;
         }
+        public List<Report> sqlCallsByEvent(string eventkey) //return multiple reports as a list
+        {
+            string sqlCommand = "SELECT * from reports WHERE event_key == " + eventkey;
+            string connection_string = @"server=" + RootPage.getSecrets().server + ";userid=" + RootPage.getSecrets().userid + ";password=" + RootPage.getSecrets().password + ";database=" + RootPage.getSecrets().database;
+            var con = new MySqlConnection(connection_string);
+            con.Open();
+            MySqlCommand cmd = new MySqlCommand(sqlCommand, con);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            List<Report> reports = null;
+            while (rdr.Read())
+            {
+                reports.Add(assignReport(rdr));
+            }
+            rdr.Close();
+            con.Close();
+            rdr.Dispose();
+            con.Dispose();
 
-        public static Report assignReport(MySqlDataReader reader)
+            return reports;
+        }
+        public static Report assignReport(MySqlDataReader reader) //creates a report based on returned data
         {
             Report report = new Report();
             report.team_key = (int)reader[0];
             report.report_key = (int)reader[1];
-            report.auto_points = (int)reader[2];
-            report.auto_skystone_delv = (int)reader[3];
-            report.auto_skystone_delv_points = (int)reader[4];
-            report.auto_stone_delv = (int)reader[5];
-            report.auto_stone_delv_points = (int)reader[6];
-            report.auto_repositioning = (bool)reader[7];
-            report.auto_placing = (int)reader[8];
-            report.auto_placing_points = (int)reader[9];
-            report.auto_navigating = (bool)reader[10];
-            report.tele_points = (int)reader[11];
-            report.tele_stone_delv = (int)reader[12];
-            report.tele_stone_delv_points = (int)reader[13];
-            report.tele_stone_placing = (int)reader[14];
-            report.tele_stone_placing_points = (int)reader[15];
-            report.end_points = (int)reader[16];
-            report.end_tallest_sky = (int)reader[17];
-            report.end_tallest_sky_points = (int)reader[18];
-            report.end_capped = (bool)reader[19];
-            report.end_capped_lv = (int)reader[20];
-            report.end_capping_points = (bool)reader[21];
-            report.end_foundation = (bool)reader[22];
-            report.parking = (bool)reader[23];
-            report.penalties = (int)reader[24];
+            report.event_key = (string)reader[2];
+            report.auto_points = (int)reader[3];
+            report.auto_skystone_delv = (int)reader[4];
+            report.auto_skystone_delv_points = (int)reader[5];
+            report.auto_stone_delv = (int)reader[6];
+            report.auto_stone_delv_points = (int)reader[7];
+            report.auto_repositioning = (bool)reader[8];
+            report.auto_placing = (int)reader[9];
+            report.auto_placing_points = (int)reader[10];
+            report.auto_navigating = (bool)reader[11];
+            report.tele_points = (int)reader[12];
+            report.tele_stone_delv = (int)reader[13];
+            report.tele_stone_delv_points = (int)reader[14];
+            report.tele_stone_placing = (int)reader[15];
+            report.tele_stone_placing_points = (int)reader[16];
+            report.end_points = (int)reader[17];
+            report.end_tallest_sky = (int)reader[18];
+            report.end_tallest_sky_points = (int)reader[19];
+            report.end_capped = (bool)reader[20];
+            report.end_capped_lv = (int)reader[21];
+            report.end_capping_points = (bool)reader[22];
+            report.end_foundation = (bool)reader[23];
+            report.parking = (bool)reader[24];
+            report.penalties = (int)reader[25];
             return report;
         }
     }

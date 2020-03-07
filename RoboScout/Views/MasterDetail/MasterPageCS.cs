@@ -25,14 +25,9 @@ namespace RoboScout.Views.Navigation
             {
                 Title = "Teams",
                 //IconSource = "todo.png",
-                TargetType = typeof(myPage)
+                TargetType = typeof(TeamsList)
             });
-            masterPageItems.Add(new MasterPageItem
-            {
-                Title = "Scouting",
-                //IconSource = "reminders.png",
-                TargetType = typeof(WelcomeStarterPage)
-            });
+ 
 
             listView = new ListView
             {
@@ -57,7 +52,7 @@ namespace RoboScout.Views.Navigation
             };
 
             IconImageSource = "hamburger.png";
-            Title = "Personal Organiser";
+            Title = "Contents";
             Padding = new Thickness(0, 40, 0, 0);
             Content = new StackLayout
             {
