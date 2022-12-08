@@ -22,7 +22,7 @@
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="2.4.0" NoWarn="NU1701" />
     <PackageReference Include="MySql.Data" Version="8.0.19" />
     <PackageReference Include="UXDivers.Effects" Version="0.6.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
     <PackageReference Include="UXDivers.Artina.Shared.Base" Version="2.7.7" />
     <PackageReference Include="UXDivers.Artina.Shared" Version="2.7.7" />
